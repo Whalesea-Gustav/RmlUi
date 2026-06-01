@@ -66,6 +66,7 @@ endif()
 
 option(RMLUI_LOTTIE_PLUGIN "Enable plugin for Lottie animations. Requires the rlottie library." OFF)
 option(RMLUI_SVG_PLUGIN "Enable plugin for SVG images. Requires the lunasvg library." OFF)
+option(RMLUI_DOCKING "Enable optional docking module." OFF)
 
 option(RMLUI_HARFBUZZ_SAMPLE "Enable harfbuzz text shaping sample. Requires the harfbuzz library." OFF)
 
@@ -148,6 +149,9 @@ endif()
 add_library(rmlui INTERFACE)
 add_library(RmlUi::RmlUi ALIAS rmlui)
 target_link_libraries(rmlui INTERFACE rmlui_core rmlui_debugger)
+if(RMLUI_DOCKING)
+	target_link_libraries(rmlui INTERFACE rmlui_docking)
+endif()
 if(RMLUI_LUA_BINDINGS)
 	target_link_libraries(rmlui INTERFACE rmlui_lua)
 endif()

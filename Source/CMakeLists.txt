@@ -1,5 +1,9 @@
 add_subdirectory("Core")
 
+if(RMLUI_DOCKING)
+	add_subdirectory("Docking")
+endif()
+
 if(RMLUI_LOTTIE_PLUGIN)
 	add_subdirectory("Lottie")
 endif()
