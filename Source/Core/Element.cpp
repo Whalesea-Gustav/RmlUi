@@ -1005,15 +1005,16 @@ ElementStyle* Element::GetStyle() const
 
 ElementDocument* Element::GetOwnerDocument() const
 {
-#ifdef RMLUI_DEBUG
 	if (parent && !owner_document)
 	{
-		// Since we have a parent but no owner_document, then we must be a 'loose' element -- that is, constructed
-		// outside of a document and not attached to a child of any element in the hierarchy of a document.
-		// This check ensures that we didn't just forget to set the owner document.
-		RMLUI_ASSERT(!parent->GetOwnerDocument());
+		for (const Element* ancestor = parent; ancestor; ancestor = ancestor->parent)
+		{
+			if (ancestor->owner_document)
+			{
+				return ancestor->owner_document;
+			}
+		}
 	}
-#endif
 
 	return owner_document;
 }
